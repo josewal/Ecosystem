@@ -5,7 +5,7 @@ List<Flower> flowers = new ArrayList<Flower>();
 
 int w = 100;
 int h = 72;
-
+float[][] dna = {{3, 30, 10, 255, 255, 255}, {1,11, 5, 0, 0, 0}};
 boolean debug = true;
 
 public void settings() {
@@ -23,14 +23,6 @@ void setup() {
             n++; 
         }
     }
-    
-    for (int i = 0; i < width/20; i++) {
-              for (int j = 0; j < height/20; j++) {
-                Cell c = cells.get(index[i][j]);
-                c.temp = 25;
-              }
-    }
-
 
     for (int i = 0; i < width/10 - 1; i++){
         for (int j = 0; j < (height/10) - 1; j++){
@@ -49,13 +41,21 @@ void setup() {
             b.nb.add(a);
         }
     }
+
+    for (int i = 10; i < height/20 - 1; i++){
+        for (int j = 40; j < (width/10) - 30; j++){
+            Cell c = cells.get(index[j][i]);
+            c.mass = 50;
+            c.temp = 10;
+        }
+    }
     
-    for (int i = 0; i < 1000; i++) { 
+    for (int i = 0; i < 50; i++) { 
         int j = floor(random(cells.size()));
         Cell c = cells.get(j);
         
-        int clr = ceil(random(2));
-        Flower f = new Flower(clr);
+        int species = floor(random(2));
+        Flower f = new Flower(dna[species]);
         while(!c.addFlower(f)) {
             j = floor(random(cells.size()));
             c = cells.get(j);
@@ -81,7 +81,7 @@ void draw() {
     }
     
     avgTemp /= cells.size();
-    println(flowers.size(), avgTemp);
+    //println(flowers.size(), avgTemp);
    
     
     for (int i = flowers.size() - 1; i >= 0; i--) {

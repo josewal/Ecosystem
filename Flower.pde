@@ -4,7 +4,7 @@ class Flower{
     List<Cell> myGrass = new ArrayList<Cell>();
     
     int[] clr = new int[3];
-    int type;
+    float[] dna;
     
     float hp;
     float maxHp;
@@ -12,35 +12,26 @@ class Flower{
     float sensitivity;
     
     
-    Flower(int type) {
+    Flower(float[] dna) {
+        // this.maxHp = 1.5
+        // this.idealTemp = 18;
+        // this.sensitivity = 6;
+        // this.clr[1] = 255;
+        // this.clr[2] = 255;
+        // this.clr[0] = 255;
         
-        this.type = type;
-            
-        switch(this.type) {
-            case 1:
-                this.maxHp = 1.5;
-                this.hp = maxHp/2;
-                this.clr[0] = 0;
-                this.idealTemp = 11;
-                this.sensitivity = 6;
-                break;
-            case 2:
-                this.maxHp = 1;
-                this.hp = maxHp/2;
-                this.clr[1] = 255;
-                this.clr[2] = 255;
-                this.clr[0] = 255;
-                this.idealTemp = 18;
-                this.sensitivity = 6;
-                break;
-            
-            default :
-            this.clr[2] = 255;
-            this.idealTemp = 25;
-            this.sensitivity = 0.2;
-            break;	
-        }
+        this.dna = dna;
+        
+        this.maxHp = dna[0];
+        this.idealTemp = dna[1];
+        this.sensitivity = dna[2];
+        this.clr[0] = (int)dna[3];
+        this.clr[1] = (int)dna[4];
+        this.clr[2] = (int)dna[5];
+        
+        this.hp = maxHp / 2;
     }
+    
     
     void update() {
         float avgTemp = 0;
@@ -59,7 +50,7 @@ class Flower{
             if (nb != null) {
                 Flower nF = this.clone();
                 if (nF != null) {
-                    this.hp /= 2;
+                    this.hp /= 4;
                     nb.addFlower(nF);
                     nb.newF = true;
                 }
@@ -73,10 +64,38 @@ class Flower{
     }
     
     Flower clone() {
-        if (this.hp > 3*this.maxHp/4) {
-            return new Flower(this.type);
+        if (this.hp > 0.6*this.maxHp) {
+            return new Flower(this.mutate());
         }
         return null;
+    }
+
+    float[] mutate(){
+      float[] dna = this.dna;
+      if(random(1)<0.0001){
+        dna[0] = dna[0] + (random(1)-0.5)*0.1;
+      }
+      if(random(1)<0.0001){
+        dna[1] = dna[1] + (random(1)-0.5)*1;
+      }
+      if(random(1)<0.0001){
+        dna[2] = dna[2] + (random(1)-0.5)*1;
+      }
+      if(random(1)<0.0001){
+        dna[3] = constrain(dna[3] + (random(1)-0.5)*200, 0, 255);
+      }
+      if(random(1)<0.00001){
+        dna[4] = constrain(dna[4] + (random(1)-0.5)*200, 0, 255);
+      }
+      if(random(1)<0.001){
+        dna[5] = constrain(dna[5] + (random(1)-0.5)*200, 0, 255);
+      }
+      
+      if(this.dna != dna){
+        print(dna);
+      }
+      
+      return dna;
     }
     
     boolean dead() {
@@ -85,7 +104,6 @@ class Flower{
     
     void display() {
         strokeWeight(1);
-        fill(clr[0], clr[1], clr[2]);
         fill(clr[0], clr[1], clr[2]);
         ellipse(this.x, this.y, 10 * this.hp / this.maxHp, 10 * this.hp / this.maxHp);
     }
