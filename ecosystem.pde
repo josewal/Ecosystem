@@ -3,14 +3,16 @@ import java.util.*;
 List<Cell> cells = new ArrayList<Cell>();
 List<Flower> flowers = new ArrayList<Flower>();
 
+int w = 100;
+int h = 72;
 
 boolean debug = true;
 
 public void settings() {
-    size(640, 360);
+    size(w * 10, h * 10);
 }
 
-int[][] index = new int[64][36];
+int[][] index = new int[w][h];
 
 void setup() {
     int n = 0;
@@ -21,6 +23,14 @@ void setup() {
             n++; 
         }
     }
+    
+    for (int i = 0; i < width/20; i++) {
+              for (int j = 0; j < height/20; j++) {
+                Cell c = cells.get(index[i][j]);
+                c.temp = 25;
+              }
+    }
+
 
     for (int i = 0; i < width/10 - 1; i++){
         for (int j = 0; j < (height/10) - 1; j++){
@@ -71,7 +81,8 @@ void draw() {
     }
     
     avgTemp /= cells.size();
-    println(avgTemp);
+    println(flowers.size(), avgTemp);
+   
     
     for (int i = flowers.size() - 1; i >= 0; i--) {
         Flower f = flowers.get(i);

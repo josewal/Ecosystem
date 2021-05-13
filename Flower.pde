@@ -15,19 +15,23 @@ class Flower{
     Flower(int type) {
         
         this.type = type;
-        this.maxHp = 1;
-        
-        this.hp = maxHp/2;
+            
         switch(this.type) {
             case 1:
-                this.clr[0] = 255;
-                this.idealTemp = 13;
-                this.sensitivity = 5;
+                this.maxHp = 1.5;
+                this.hp = maxHp/2;
+                this.clr[0] = 0;
+                this.idealTemp = 11;
+                this.sensitivity = 6;
                 break;
             case 2:
+                this.maxHp = 1;
+                this.hp = maxHp/2;
                 this.clr[1] = 255;
-                this.idealTemp = 17;
-                this.sensitivity = 3;
+                this.clr[2] = 255;
+                this.clr[0] = 255;
+                this.idealTemp = 18;
+                this.sensitivity = 6;
                 break;
             
             default :

@@ -15,7 +15,7 @@ class Cell{
         this.y = y;
         this.w = w;
 
-        this.temp = 16+random(10)-5;
+        this.temp = 14+random(3)-1.5;
     }
 
     boolean addFlower(Flower f){
@@ -23,7 +23,7 @@ class Cell{
             return false;
         }
 
-        println(this.x, this.y, f!=null);
+        //println(this.x, this.y, f!=null);
         f.x = this.x + this.w / 2;
         f.y = this.y + this.w / 2;
         this.f = f;
@@ -47,22 +47,22 @@ class Cell{
     }
 
     void update(){
-        this.temp -= 0.025;
+        this.temp -= 0.03;
         
         if (this.f != null && this.f.dead()){
             this.f = null;
         }
 
         if (this.f != null){
-            temp += this.f.clr[0]/255 * 0.05 + this.f.clr[1]/255 * 0.005;
+            temp += 0.05 + 1-this.f.clr[1]/255 * 0.01;
         }
 
-        this.temp = constrain(this.temp, 5, 25);
+        this.temp = constrain(this.temp, 8, 30);
 
         for(int i = 0; i < this.nb.size(); i++){
             Cell c = this.nb.get(i);
             float tempDiff = c.temp - this.temp;
-            this.temp += tempDiff/100;
+            this.temp += (tempDiff)/100;
         }
 
     }
@@ -70,7 +70,8 @@ class Cell{
     
 
     void display(){
-        fill(temp/30 * 255, 255 - temp/30 * 255, 0);
+        fill(temp/30 * 255,  255 - temp/30 * 255, 0);
+        noStroke();
         rect(x,y,w,w);
     }
 }
