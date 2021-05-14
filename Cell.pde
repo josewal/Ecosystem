@@ -48,14 +48,14 @@ class Cell{
     }
     
     void update() {
-        this.temp += -0.05;
+        this.temp += -0.6/mass;
         
         if (this.f != null && this.f.dead()) {
             this.f = null;
         }
         
         if (this.f != null) {
-            temp += 2 * (1.2 - (this.f.clr[0] + this.f.clr[1] + this.f.clr[2]) / 765);
+            temp += (1 * (1.3 - (this.f.clr[0] + this.f.clr[1] + this.f.clr[2]) / 765))/mass;
         }
         
         this.temp = constrain(this.temp, 0, 30);

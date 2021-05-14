@@ -71,30 +71,30 @@ class Flower{
     }
 
     float[] mutate(){
-      float[] dna = this.dna;
-      if(random(1)<0.0001){
-        dna[0] = dna[0] + (random(1)-0.5)*0.1;
+      float[] dna = new float[6];
+      for(int i = 0; i < dna.length; i++){
+        dna[i] += this.dna[i];
       }
-      if(random(1)<0.0001){
-        dna[1] = dna[1] + (random(1)-0.5)*1;
-      }
-      if(random(1)<0.0001){
-        dna[2] = dna[2] + (random(1)-0.5)*1;
-      }
-      if(random(1)<0.0001){
-        dna[3] = constrain(dna[3] + (random(1)-0.5)*200, 0, 255);
-      }
-      if(random(1)<0.00001){
-        dna[4] = constrain(dna[4] + (random(1)-0.5)*200, 0, 255);
+      
+      if(random(1)<0.001){
+        dna[0] = this.dna[0] + (random(1)-0.5)*0.1;
       }
       if(random(1)<0.001){
-        dna[5] = constrain(dna[5] + (random(1)-0.5)*200, 0, 255);
+        dna[1] = this.dna[1] + (random(1)-0.5)*1;
       }
-      
-      if(this.dna != dna){
-        print(dna);
+      if(random(1)<0.001){
+        dna[2] = this.dna[2] + (random(1)-0.5)*1;
       }
-      
+      if(random(1)<0.0001){
+        dna[3] = constrain(this.dna[3] + (random(1)-0.5)*200, 0, 255);
+      }
+      if(random(1)<0.0001){
+        dna[4] = constrain(this.dna[4] + (random(1)-0.5)*200, 0, 255);
+      }
+      if(random(1)<0.001){
+        dna[5] = constrain(this.dna[5] + (random(1)-0.5)*200, 0, 255);
+      }
+ 
       return dna;
     }
     
