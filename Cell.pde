@@ -4,10 +4,12 @@ class Cell{
     int w;
     
     float temp;
+    int maxTemp = 40;
     float mass = 10;
+    int alpha;
     
     Flower f = null;
-    boolean newF;
+    boolean newF = false;
     
     List<Cell> nb = new ArrayList<Cell>();
     
@@ -48,17 +50,17 @@ class Cell{
     }
     
     void update() {
-        this.temp += -0.6/mass;
+        this.temp += -0.7/mass;
         
         if (this.f != null && this.f.dead()) {
             this.f = null;
         }
         
         if (this.f != null) {
-            temp += (1 * (1.3 - (this.f.clr[0] + this.f.clr[1] + this.f.clr[2]) / 765))/mass;
+            temp += (1 * (1.2 - (this.f.dna.clr[0] + this.f.dna.clr[1] + this.f.dna.clr[2]) / 765))/mass;
         }
         
-        this.temp = constrain(this.temp, 0, 30);
+        this.temp = constrain(this.temp, 0, maxTemp);
         
         for (int i = 0; i < this.nb.size(); i++) {
             Cell c = this.nb.get(i);
@@ -67,10 +69,8 @@ class Cell{
         }
     }
     
-    
-    
     void display() {
-        fill(temp / 30 * 255,  255 - temp / 30 * 255, 0, 200);
+        fill(temp / maxTemp * 255,  255 - temp / maxTemp * 255, 0, alpha);
         noStroke();
         rect(x,y,w,w);
     }
