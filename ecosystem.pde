@@ -66,7 +66,7 @@ void setup() {
     //}
     
     float xoff = 0.0; // Start xoff at 0
-    float detail = 0.5;
+    float detail = 0.8;
     noiseDetail(8, detail);
     float increment = 0.08;
   
@@ -78,7 +78,7 @@ void setup() {
       yoff += increment; // Increment yoff
       
       // Calculate noise and scale by 255
-      float cool = map(noise(xoff, yoff),0,1,-2,0.2);
+      float cool = map(noise(xoff, yoff),0,1,-2,2);
       Cell c = cells.get(index[x][y]);
       c.cooling = cool;
   }
@@ -148,15 +148,22 @@ void setup() {
         }else if(keyCode == 'M'){
           if(uniqColor){
             uniqColor = false;
+            println("Genome map: OFF");
           }else{
             Earth.assignUniqueClr(5);
             uniqColor = true;
+            println("Genome map: ON");
+
           }
         }else if(keyCode == 'N'){
           if(dispCooling){
             dispCooling = false;
+            println("Cooling map: OFF");
+
           }else{
             dispCooling = true;
+                        println("Cooling map: ON");
+
           }
         }
     }

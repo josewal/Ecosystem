@@ -85,7 +85,7 @@
     void display(boolean dispCooling) {
         this.updateClr();
         if(dispCooling){
-          fill(255-map(cooling,-3,1,255,0),255-map(cooling,-3,1,0,255),b);
+          fill(map(cooling,-3,1,0,255),map(cooling,-3,1,255,0),b);
         }else{
           fill(r,g,b);
         }
