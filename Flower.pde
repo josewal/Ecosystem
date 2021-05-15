@@ -1,10 +1,10 @@
-class Flower{
+ class Flower{
     float x;
     float y;
     List<Cell> myGrass = new ArrayList<Cell>();
     
     Dna dna;
-    
+      
     float hp;
     float age;
     float mSize;
@@ -60,9 +60,15 @@ class Flower{
       return this.hp == 0;
     }
     
-    void display() {
-        strokeWeight(1);
-        fill(this.dna.clr[0], this.dna.clr[1], this.dna.clr[2]);
+    void display(boolean uniClr) {
+        noStroke();
+        if(uniClr){
+            fill(this.dna.uniqClr.r, this.dna.uniqClr.g, this.dna.uniqClr.b);
+
+        }else{
+           fill(this.dna.clr.r, this.dna.clr.r, this.dna.clr.b);
+        }
         ellipse(this.x, this.y, this.mSize * this.hp / this.dna.maxHp, this.mSize * this.hp / this.dna.maxHp);
+
     }
 }

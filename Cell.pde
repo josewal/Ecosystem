@@ -1,4 +1,4 @@
-class Cell{
+ class Cell{
     int x;
     int y;
     int w;
@@ -6,7 +6,7 @@ class Cell{
     float temp;
     int maxTemp = 50;
     int minTemp = -20;
-    float cooling = -0.75;
+    float cooling = -0.7;
     float mass = 100;
     int alpha;
     
@@ -69,7 +69,7 @@ class Cell{
         }
         
         if (this.f != null) {
-            temp += (1 * (1.3 - (this.f.dna.clr[0] + this.f.dna.clr[1] + this.f.dna.clr[2]) / 765))/mass;
+            temp += (1 * (1.3 - this.f.dna.clr.therm ) )/mass;
         }
         
 

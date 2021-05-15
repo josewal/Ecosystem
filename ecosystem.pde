@@ -8,9 +8,13 @@ int w = 100;
 int h = 64;
 int r = 10;
 
-Dna white = new Dna("A", 1 ,1, 0.6,  25,  13  , 255, 255, 255);
-Dna black = new Dna("B", 0.5, 0.1, 0.6, 12, 11, 0, 0 ,0);
-boolean debug = true;
+Color wh = new Color(255,255,255);
+Color bl = new Color(0,0,0);
+
+Dna white = new Dna("A", 1 ,1, 0.6,  25,  13 , wh, wh);
+Dna black = new Dna("B", 0.5, 0.1, 0.6, 12, 11, bl, bl);
+ 
+boolean uniqColor = true;
 
 public void settings() {
     size(w * r, h * r);
@@ -49,7 +53,7 @@ void setup() {
     for (int i = 0; i < h/5; i++) {
         for (int j = 0; j < w/5; j++) {
             Cell c = cells.get(index[j][i]);
-            c.cooling = -1.5;
+            c.cooling = -2;
         }
     }
     
@@ -125,7 +129,16 @@ void setup() {
             s = constrain(s -= 5, 0, 100000);
             println(s);
         } else if (keyCode == ENTER){
-            print(Earth.genomeCount());
+            print(Earth.genomeCount(50));
+        }else if (keyCode == ENTER && keyCode == SHIFT){
+            print(Earth.genomeCount(0));
+        }else if(keyCode == ALT){
+          if(uniqColor){
+            uniqColor = false;
+          }else{
+            Earth.assignUniqueClr(5);
+            uniqColor = true;
+          }
         }
     }
     
@@ -158,7 +171,7 @@ void setup() {
 
             f.update();
             if (d >= s) {
-                f.display();
+                f.display(uniqColor);
             }
             if (f.dead()) {
                 --f.dna.numFlowers;
@@ -172,4 +185,4 @@ void setup() {
             d++;
         }
     }
-    
+   

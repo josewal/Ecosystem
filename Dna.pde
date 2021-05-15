@@ -1,33 +1,32 @@
-class Dna{
+ class Dna{
     float maxHp;
     float idealTemp;
     float sensitivity;
-    int clr[] = new int[3];
+    Color clr;
     float aging;
     float cloneCost;
     String id;
     int numMutations  = 0;
     int numFlowers = 0;
+    Color uniqClr;
     Dna parent;
     
     
-    Dna(String id, float  mph, float ag, float clC, float iT, float sens, int r, int g, int b) {
+    Dna(String id, float  mph, float ag, float clC, float iT, float sens, Color clr, Color uniqClr) {
         this.maxHp = mph;
         this.idealTemp = iT;
         this.sensitivity = sens;
-        this.clr[0] = r;
-        this.clr[1] = g;
-        this.clr[2] = b;
+        this.clr  = clr;
         this.id = id;
         this.aging = ag;
         this.cloneCost = clC;
-        
+        this.uniqClr = uniqClr;
         Earth.dnas.add(this);
     }
     
     Dna cloneDna(){
       String mid = id+"|"+(numMutations+1);
-      Dna cloned =  new Dna(mid, maxHp, aging, cloneCost, idealTemp, sensitivity, clr[0], clr[1], clr[2]);
+      Dna cloned =  new Dna(mid, maxHp, aging, cloneCost, idealTemp, sensitivity, clr, uniqClr);
       cloned.parent = this;
       return cloned;
     }
@@ -39,7 +38,6 @@ class Dna{
         if (rand<0.001) {
            int gene = floor(rand*10000);
            float m = 2*(rand*10000 - gene) - 1;
-           println(gene,m);
             switch(gene){
               case(0):
                 mutated = this.cloneDna();
@@ -63,15 +61,15 @@ class Dna{
               break;
               case(5):
               mutated = this.cloneDna();
-                mutated.clr[0] = constrain(this.clr[0] + (int)(m * 200), 0, 255);
+              mutated.changeColor(constrain(this.clr.r + (int)(m * 200), 0, 255),clr.g,clr.b);
               break;
               case(6):
               mutated = this.cloneDna();
-                mutated.clr[1] = constrain(this.clr[1] + (int)(m * 200), 0, 255);
+              mutated.changeColor(clr.r,constrain(this.clr.g + (int)(m * 200), 0, 255),clr.b);
               break;
               case(7):
               mutated = this.cloneDna();
-                mutated.clr[2] = constrain(this.clr[2] + (int)(m * 200), 0, 255);
+              mutated.changeColor(clr.r,clr.g , constrain(this.clr.b + (int)(m * 200), 0, 255));
               break;
             }
         }
@@ -85,6 +83,10 @@ class Dna{
         return this;
     }
     
+    public void changeColor(int r, int g, int b){
+      this.clr = new Color(r,g,b);
+    }
+    
     public String toString(){
       return  numFlowers+ "\t" +id
         + "\t\t||" + String.format("%.2f", maxHp)
@@ -92,7 +94,7 @@ class Dna{
         + "|" + String.format("%.2f", cloneCost) 
         + "|" + String.format("%.2f", idealTemp) 
         + "|" + String.format("%.2f", sensitivity) 
-        + "|"+ String.format("%.2f", ((float)(this.clr[0] + this.clr[1] + this.clr[2]) / 765f)) +"||"  ;
+        + "|"+ String.format("%.2f", clr.therm )+ "||"  ;
     }
     
     void printGenesisHist(){
