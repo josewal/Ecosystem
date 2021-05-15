@@ -5,11 +5,11 @@ private List<Flower> flowers = new ArrayList<Flower>();
   
 
 int w = 100;
-int h = 100;
-int r = 7;
+int h = 64;
+int r = 10;
 
-Dna white = new Dna("A", 1 ,0, 0.55,  20,  7  , 255, 255, 255);
-Dna black = new Dna("B", 0.5, 0, 0.6, 11, 10, 0, 0 ,0);
+Dna white = new Dna("A", 1 ,1, 0.6,  25,  13  , 255, 255, 255);
+Dna black = new Dna("B", 0.5, 0.1, 0.6, 12, 11, 0, 0 ,0);
 boolean debug = true;
 
 public void settings() {
@@ -46,26 +46,33 @@ void setup() {
         }
     }
     
-    float xoff = 0.0; // Start xoff at 0
-    float detail = 0.5;
-    noiseDetail(8, detail);
-    float increment = 0.07;
+    for (int i = 0; i < h/5; i++) {
+        for (int j = 0; j < w/5; j++) {
+            Cell c = cells.get(index[j][i]);
+            c.cooling = -1.5;
+        }
+    }
+    
+    //float xoff = 0.0; // Start xoff at 0
+  //  float detail = 0.5;
+  //  noiseDetail(8, detail);
+  //  float increment = 0.02;
   
-  // For every x,y coordinate in a 2D space, calculate a noise value and produce a brightness value
-  for (int x = 0; x < w; x++) {
-    xoff += increment;   // Increment xoff 
-    float yoff = 0.0;   // For every xoff, start yoff at 0
-    for (int y = 0; y < h; y++) {
-      yoff += increment; // Increment yoff
+  //// For every x,y coordinate in a 2D space, calculate a noise value and produce a brightness value
+  //for (int x = 0; x < w; x++) {
+  //  xoff += increment;   // Increment xoff 
+  //  float yoff = 0.0;   // For every xoff, start yoff at 0
+  //  for (int y = 0; y < h; y++) {
+  //    yoff += increment; // Increment yoff
       
-      // Calculate noise and scale by 255
-      float mass = noise(xoff, yoff) * 10;
-      Cell c = cells.get(index[x][y]);
-      c.mass = mass;
-      c.alpha = (int)(255*mass/10);
-      c.temp = 40-40*mass/10;
-  }
-  }
+  //    // Calculate noise and scale by 255
+  //    float mass = noise(xoff, yoff) * 10;
+  //    Cell c = cells.get(index[x][y]);
+  //    c.mass = mass;
+  //    c.alpha = (int)(255-255*mass/10);
+  //    c.temp = 20;
+  //}
+  //}
     
     for (int i = 0; i < 500; i++) { 
         int j = floor(random(cells.size()));

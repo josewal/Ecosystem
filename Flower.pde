@@ -10,6 +10,7 @@ class Flower{
     float mSize;
     
     Flower(float mS, Dna dna) {
+        this.age=random(0,0.3);
         this.mSize = mS;
         this.dna = dna;  
         this.hp = dna.maxHp / 2;
@@ -28,7 +29,7 @@ class Flower{
         float tempDiff = this.dna.idealTemp - avgTemp;
         
         if (abs(tempDiff)<this.dna.sensitivity) {
-            this.age += dna.aging/10000;
+            this.age += dna.aging/1000;
             this.hp += 0.002*(1-this.age);
             
             Cell nb =  myGrass.get(0).freeNb();

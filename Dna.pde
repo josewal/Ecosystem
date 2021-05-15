@@ -35,39 +35,47 @@ class Dna{
     
     Dna mutate() {
         Dna mutated = null;
-        if (random(1)<0.0001) {
-            mutated = this.cloneDna();
-            mutated.maxHp = constrain(this.maxHp + random(-1,1)*0.1, 0.01, 10);
+        float rand = random(1);
+        if (rand<0.001) {
+           int gene = floor(rand*10000);
+           float m = 2*(rand*10000 - gene) - 1;
+           println(gene,m);
+            switch(gene){
+              case(0):
+                mutated = this.cloneDna();
+                mutated.maxHp = constrain(this.maxHp + m*0.1, 0.01, 10);
+              break;
+              case(1):
+              mutated = this.cloneDna();
+                mutated.aging = constrain(this.aging + m*0.5, 0.01, 10);
+              break;
+              case(2):
+              mutated = this.cloneDna();
+                mutated.cloneCost = constrain(this.cloneCost + m*0.1, 0.01, 2);
+              break;
+              case(3):
+              mutated = this.cloneDna();
+                mutated.idealTemp = this.idealTemp + m*3;
+              break;
+              case(4):
+              mutated = this.cloneDna();
+                mutated.sensitivity = this.sensitivity + m*1;
+              break;
+              case(5):
+              mutated = this.cloneDna();
+                mutated.clr[0] = constrain(this.clr[0] + (int)(m * 200), 0, 255);
+              break;
+              case(6):
+              mutated = this.cloneDna();
+                mutated.clr[1] = constrain(this.clr[1] + (int)(m * 200), 0, 255);
+              break;
+              case(7):
+              mutated = this.cloneDna();
+                mutated.clr[2] = constrain(this.clr[2] + (int)(m * 200), 0, 255);
+              break;
+            }
         }
-        if (random(1)<0.0001) {
-            if (mutated ==  null) mutated = this.cloneDna();
-            mutated.idealTemp = this.idealTemp + random(-1,1)*3;
-        }
-        if (random(1)<0.0001) {
-            if (mutated ==  null) mutated = this.cloneDna();
-            mutated.sensitivity = constrain(this.sensitivity + random(-1,1)*1, 0, 20);
-        }
-        if (random(1)<0.0001) {
-            if (mutated ==  null) mutated = this.cloneDna();
-            mutated.aging = constrain(this.aging + random(-1,1)*0.01, 0, 1);
-        }
-        if (random(1)<0.0001) {
-            if (mutated ==  null) mutated = this.cloneDna();
-            mutated.cloneCost = constrain(this.cloneCost + random(-1,1)*0.1, 0, 1);
-        }
-        if (random(1)<0.0001) {
-            if (mutated ==  null) mutated = this.cloneDna();
-            mutated.clr[0] = constrain(this.clr[0] + (int)(random(-1,1) * 200), 0, 255);
-        }
-        if (random(1)<0.0001) {
-            if (mutated ==  null) mutated = this.cloneDna();
-            mutated.clr[1] = constrain(this.clr[1] + (int)(random(-1,1) * 200), 0, 255);
-        }
-        if (random(1)<0.0001) {
-            if (mutated ==  null) mutated = this.cloneDna();
-            mutated.clr[2] = constrain(this.clr[2] + (int)(random(-1,1) * 200), 0, 255);
-        }
-        
+
         if (mutated !=  null) {
             println("NEW MUTATION: "+mutated);
             ++this.numMutations;

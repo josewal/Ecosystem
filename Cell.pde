@@ -4,9 +4,15 @@ class Cell{
     int w;
     
     float temp;
-    int maxTemp = 40;
-    float mass = 10;
+    int maxTemp = 50;
+    int minTemp = -20;
+    float cooling = -0.75;
+    float mass = 100;
     int alpha;
+    
+    int r;
+    int g;
+    int b;
     
     Flower f = null;
     boolean newF = false;
@@ -19,6 +25,12 @@ class Cell{
         this.w = w;
         
         this.temp = 16;
+    }
+    
+    void updateClr(){
+      this.r = (int)map(temp, -20, 60, 0, 255);
+      this.g = (int)map(temp, -20, 60, 255, 0);
+      this.b = 0;
     }
     
     boolean addFlower(Flower f) {
@@ -50,27 +62,29 @@ class Cell{
     }
     
     void update() {
-        this.temp += -0.7/mass;
+        this.temp += cooling/mass;
         
         if (this.f != null && this.f.dead()) {
             this.f = null;
         }
         
         if (this.f != null) {
-            temp += (1 * (1.2 - (this.f.dna.clr[0] + this.f.dna.clr[1] + this.f.dna.clr[2]) / 765))/mass;
+            temp += (1 * (1.3 - (this.f.dna.clr[0] + this.f.dna.clr[1] + this.f.dna.clr[2]) / 765))/mass;
         }
         
-        this.temp = constrain(this.temp, 0, maxTemp);
-        
+
         for (int i = 0; i < this.nb.size(); i++) {
             Cell c = this.nb.get(i);
             float tempDiff = c.temp - this.temp;
             this.temp += (tempDiff)/mass;
         }
+        
+        this.temp = constrain(this.temp, minTemp, maxTemp);
     }
     
     void display() {
-        fill(temp / maxTemp * 255,  255 - temp / maxTemp * 255, 0, alpha);
+        this.updateClr();
+        fill(r,g,b);
         noStroke();
         rect(x,y,w,w);
     }
