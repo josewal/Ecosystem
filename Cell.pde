@@ -84,8 +84,9 @@
     
     void display() {
         this.updateClr();
-        fill(r,g,b);
+        fill(r,g,b,map(cooling,-3,1,0,255));
         noStroke();
         rect(x,y,w,w);
     }
+    
 }

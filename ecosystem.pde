@@ -50,40 +50,38 @@ void setup() {
         }
     }
     
-    for (int i = 0; i < h/4; i++) {
-        for (int j = 0; j < w/4; j++) {
-            Cell c = cells.get(index[j][i]);
-            c.cooling = -3;
-        }
-    }
+    //for (int i = 0; i < h/4; i++) {
+    //    for (int j = 0; j < w/4; j++) {
+    //        Cell c = cells.get(index[j][i]);
+    //        c.cooling = -3;
+    //    }
+    //}
     
-    for (int i = 3*h/4; i < h; i++) {
-        for (int j = 3*w/4; j < w; j++) {
-            Cell c = cells.get(index[j][i]);
-            c.cooling = 3;
-        }
-    }
+    //for (int i = 3*h/4; i < h; i++) {
+    //    for (int j = 3*w/4; j < w; j++) {
+    //        Cell c = cells.get(index[j][i]);
+    //        c.cooling = 3;
+    //    }
+    //}
     
-    //float xoff = 0.0; // Start xoff at 0
-  //  float detail = 0.5;
-  //  noiseDetail(8, detail);
-  //  float increment = 0.02;
+    float xoff = 0.0; // Start xoff at 0
+    float detail = 0.5;
+    noiseDetail(8, detail);
+    float increment = 0.03;
   
-  //// For every x,y coordinate in a 2D space, calculate a noise value and produce a brightness value
-  //for (int x = 0; x < w; x++) {
-  //  xoff += increment;   // Increment xoff 
-  //  float yoff = 0.0;   // For every xoff, start yoff at 0
-  //  for (int y = 0; y < h; y++) {
-  //    yoff += increment; // Increment yoff
+  // For every x,y coordinate in a 2D space, calculate a noise value and produce a brightness value
+  for (int x = 0; x < w; x++) {
+    xoff += increment;   // Increment xoff 
+    float yoff = 0.0;   // For every xoff, start yoff at 0
+    for (int y = 0; y < h; y++) {
+      yoff += increment; // Increment yoff
       
-  //    // Calculate noise and scale by 255
-  //    float mass = noise(xoff, yoff) * 10;
-  //    Cell c = cells.get(index[x][y]);
-  //    c.mass = mass;
-  //    c.alpha = (int)(255-255*mass/10);
-  //    c.temp = 20;
-  //}
-  //}
+      // Calculate noise and scale by 255
+      float cool = map(noise(xoff, yoff),0,1,-3,0);
+      Cell c = cells.get(index[x][y]);
+      c.cooling = cool;
+  }
+  }
     
     for (int i = 0; i < 500; i++) { 
         int j = floor(random(cells.size()));
@@ -129,10 +127,10 @@ void setup() {
     int s = 1;
     void keyPressed() {
         if (keyCode == UP) {
-            s = constrain(s *= 2, 1, 100000);
+            s = constrain(s *= 2, 1, 33000);
             println("**Rendering  every " + s + " frames.");
         } else if (keyCode == DOWN) {
-            s = constrain(s /= 2, 1, 100000);
+            s = constrain(s /= 2, 1, 33000);
             println("**Rendering  every " + s  + " frames.");
          }else if (keyCode == 'C'){
             print(Earth.genomeCount(0));
