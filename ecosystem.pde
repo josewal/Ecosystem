@@ -50,10 +50,17 @@ void setup() {
         }
     }
     
-    for (int i = 0; i < h/5; i++) {
-        for (int j = 0; j < w/5; j++) {
+    for (int i = 0; i < h/4; i++) {
+        for (int j = 0; j < w/4; j++) {
             Cell c = cells.get(index[j][i]);
-            c.cooling = -2;
+            c.cooling = -3;
+        }
+    }
+    
+    for (int i = 3*h/4; i < h; i++) {
+        for (int j = 3*w/4; j < w; j++) {
+            Cell c = cells.get(index[j][i]);
+            c.cooling = 3;
         }
     }
     
@@ -115,24 +122,23 @@ void setup() {
             print("Temp:",(int)c.temp, "  DNA:", c.f.dna.toString());
             println();
         }else if(c.f == null){
-            println("Temp:",(int)c.temp);
+            println("Temperature:",(int)c.temp);
         }
     }
     
     int s = 0;
-    int d = 0;
     void keyPressed() {
         if (keyCode == UP) {
             s = constrain(s += 5, 0, 100000);
-            println(s);
+            println("**Rendering  every " + s + " frames.");
         } else if (keyCode == DOWN) {
             s = constrain(s -= 5, 0, 100000);
-            println(s);
-        } else if (keyCode == ENTER){
-            print(Earth.genomeCount(50));
-        }else if (keyCode == ENTER && keyCode == SHIFT){
+            println("**Rendering  every " + s  + " frames.");
+         }else if (keyCode == 'C'){
             print(Earth.genomeCount(0));
-        }else if(keyCode == ALT){
+        } else if (keyCode == 'V'){
+            print(Earth.genomeCount(50));
+        }else if(keyCode == 'M'){
           if(uniqColor){
             uniqColor = false;
           }else{
@@ -145,7 +151,8 @@ void setup() {
     
     
     void draw() {
-        if (d >= s) {
+      for(int d = 0; d <= s; d++){
+        if (d == 0) {
             background(51);
         }
         float avgTemp = 0;
@@ -153,7 +160,7 @@ void setup() {
             Cell c = cells.get(i);
             c.update();
             avgTemp += c.temp;
-            if (d >= s) {
+            if (d == 0) {
                 c.display();
             }
 
@@ -170,7 +177,7 @@ void setup() {
             Flower f = flowers.get(i);
 
             f.update();
-            if (d >= s) {
+            if (d == 0) {
                 f.display(uniqColor);
             }
             if (f.dead()) {
@@ -178,11 +185,6 @@ void setup() {
                 flowers.remove(i);       
             }
         }
-        
-        if (d >= s) {
-            d = 0;
-        } else{
-            d++;
-        }
+    }
     }
    
