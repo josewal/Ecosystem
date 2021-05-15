@@ -75,7 +75,9 @@
         }
 
         if (mutated !=  null) {
+          if(Earth.printNewM){
             println("NEW MUTATION: "+mutated);
+          }
             ++this.numMutations;
             return mutated;
         }

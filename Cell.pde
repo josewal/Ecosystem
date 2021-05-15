@@ -4,8 +4,8 @@
     int w;
     
     float temp;
-    int maxTemp = 50;
-    int minTemp = -20;
+    int maxTemp = 70;
+    int minTemp = -30;
     float cooling = -0.7;
     float mass = 100;
     int alpha;

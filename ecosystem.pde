@@ -126,18 +126,26 @@ void setup() {
         }
     }
     
-    int s = 0;
+    int s = 1;
     void keyPressed() {
         if (keyCode == UP) {
-            s = constrain(s += 5, 0, 100000);
+            s = constrain(s *= 2, 1, 100000);
             println("**Rendering  every " + s + " frames.");
         } else if (keyCode == DOWN) {
-            s = constrain(s -= 5, 0, 100000);
+            s = constrain(s /= 2, 1, 100000);
             println("**Rendering  every " + s  + " frames.");
          }else if (keyCode == 'C'){
             print(Earth.genomeCount(0));
         } else if (keyCode == 'V'){
             print(Earth.genomeCount(50));
+            } else if (keyCode == 'B'){
+              if(Earth.printNewM){
+                Earth.printNewM = false;
+                println("Printing new mutations: OFF");
+            }else{
+                  Earth.printNewM = true;
+                println("Printing new mutations: ON");
+            }
         }else if(keyCode == 'M'){
           if(uniqColor){
             uniqColor = false;

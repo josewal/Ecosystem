@@ -1,4 +1,7 @@
 static class Earth{
+  static boolean printNewM = false;
+
+  
   static List<Dna> dnas = new ArrayList<Dna>();
   static List<Color> clrs = new ArrayList<Color>();
 static{
