@@ -15,6 +15,7 @@ Dna white = new Dna("A", 1 ,1, 0.6,  25,  13 , wh, wh);
 Dna black = new Dna("B", 0.5, 0.1, 0.6, 12, 11, bl, bl);
  
 boolean uniqColor = true;
+boolean dispCooling = false;
 
 public void settings() {
     size(w * r, h * r);
@@ -67,7 +68,7 @@ void setup() {
     float xoff = 0.0; // Start xoff at 0
     float detail = 0.5;
     noiseDetail(8, detail);
-    float increment = 0.03;
+    float increment = 0.08;
   
   // For every x,y coordinate in a 2D space, calculate a noise value and produce a brightness value
   for (int x = 0; x < w; x++) {
@@ -77,13 +78,13 @@ void setup() {
       yoff += increment; // Increment yoff
       
       // Calculate noise and scale by 255
-      float cool = map(noise(xoff, yoff),0,1,-3,0);
+      float cool = map(noise(xoff, yoff),0,1,-2,0.2);
       Cell c = cells.get(index[x][y]);
       c.cooling = cool;
   }
   }
     
-    for (int i = 0; i < 500; i++) { 
+    for (int i = 0; i < 550; i++) { 
         int j = floor(random(cells.size()));
         Cell c = cells.get(j);
         
@@ -151,6 +152,12 @@ void setup() {
             Earth.assignUniqueClr(5);
             uniqColor = true;
           }
+        }else if(keyCode == 'N'){
+          if(dispCooling){
+            dispCooling = false;
+          }else{
+            dispCooling = true;
+          }
         }
     }
     
@@ -167,7 +174,7 @@ void setup() {
             c.update();
             avgTemp += c.temp;
             if (d == 0) {
-                c.display();
+                c.display(dispCooling);
             }
 
             if (c.newF) {

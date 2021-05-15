@@ -82,9 +82,13 @@
         this.temp = constrain(this.temp, minTemp, maxTemp);
     }
     
-    void display() {
+    void display(boolean dispCooling) {
         this.updateClr();
-        fill(r,g,b,map(cooling,-3,1,0,255));
+        if(dispCooling){
+          fill(255-map(cooling,-3,1,255,0),255-map(cooling,-3,1,0,255),b);
+        }else{
+          fill(r,g,b);
+        }
         noStroke();
         rect(x,y,w,w);
     }
