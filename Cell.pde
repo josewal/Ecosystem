@@ -4,10 +4,10 @@
     int w;
     
     float temp;
-    int maxTemp = 70;
+    int maxTemp = 30;
     int minTemp = -30;
     float cooling = -0.7;
-    float mass = 100;
+    float mass = 10;
     int alpha;
     
     int r;
@@ -62,7 +62,8 @@
     }
     
     void update() {
-        this.temp += cooling/mass;
+        float newT = this.temp + cooling/mass ;
+        this.temp  = newT < maxTemp && newT > minTemp ? newT : this.temp;
         
         if (this.f != null && this.f.dead()) {
             this.f = null;
@@ -76,11 +77,9 @@
         for (int i = 0; i < this.nb.size(); i++) {
             Cell c = this.nb.get(i);
             float tempDiff = c.temp - this.temp;
-            this.temp += (tempDiff)/mass;
-        }
-        
-        this.temp = constrain(this.temp, minTemp, maxTemp);
-    }
+            this.temp += (tempDiff)/(mass);
+        }        
+}
     
     void display(boolean dispCooling) {
         this.updateClr();
