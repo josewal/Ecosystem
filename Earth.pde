@@ -2,6 +2,7 @@ static class Earth{
   static boolean printNewM = false;
   static float minCool, maxCool;
   static long age = 0;
+  
   static Set<Dna> dnas = 
     Collections.newSetFromMap(
         new WeakHashMap<Dna, Boolean>()
@@ -15,7 +16,7 @@ static{
   static Color black = new Color(0, 0, 0 );
   static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
   static String formatAgeString(long a){
-      Date dt = new Date(100*a);
+      Date dt = new Date(1000*a);
       return simpleDateFormat.format(dt);
   }
   static List<Dna> getSortedDnas(){

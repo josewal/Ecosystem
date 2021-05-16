@@ -4,13 +4,14 @@ import java.text.*;
 List<Cell> cells = new ArrayList<Cell>();
 private List<Flower> flowers = new ArrayList<Flower>();
   
-int w = 100;
-int h = 60;
+long   shotInt = 86400;
+int w = 20;
+int h = 28;
 int r = 10;
 
 static{ 
   Earth.minCool = - 2;
-  Earth.maxCool = 1.75;
+  Earth.maxCool = 0.5;
 }
 float increment = 0.04;
 
@@ -192,7 +193,13 @@ void setup() {
     
     void draw() {
       for(int d = 0; d <= s; d++){
+        
         Earth.age++;
+        
+        if( Earth.age % shotInt == 0){
+          screenShot();
+        }
+        
         if (d == 0) {
             background(51);
         }
@@ -228,4 +235,8 @@ void setup() {
         }
     }
     }
+    
+    void screenShot(){
+     save("ecosys_" + Earth.formatAgeString(Earth.age) + ".jpg");
+   }
    
