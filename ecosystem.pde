@@ -5,21 +5,21 @@ List<Cell> cells = new ArrayList<Cell>();
 private List<Flower> flowers = new ArrayList<Flower>();
   
 long   shotInt = 86400;
-int w = 20;
-int h = 28;
-int r = 10;
+int w = 300;
+int h = 200;
+int r = 5;
 
 static{ 
   Earth.minCool = - 2;
-  Earth.maxCool = 0.5;
+  Earth.maxCool = 1.5;
 }
 float increment = 0.04;
 
 Color wh = new Color(220,220,220);
 Color bl = new Color(0,0,0);
 
-Dna white = new Dna("A", 0.5 ,0.5, 0.1,  25,  10 , wh, wh);
-Dna black = new Dna("B", 2, 0.1, 0.45, 12, 17, bl, bl);
+Dna white = new Dna("A", 0.5 , 0.5, 0.1,  25,  10 , wh, wh);
+Dna black = new Dna("B", 2   , 0.1, 0.25, 12, 17, bl, bl);
  
 boolean uniqColor = false;
 boolean dispCooling = false;
