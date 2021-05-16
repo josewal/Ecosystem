@@ -69,7 +69,7 @@
         }
         
         if (this.f != null) {
-            temp += (1 * (1.3 - this.f.dna.clr.therm ) )/mass;
+            temp += (1 * (1.1 - this.f.dna.clr.therm ) )/mass;
         }
         
 
@@ -84,8 +84,10 @@
     
     void display(boolean dispCooling) {
         this.updateClr();
-        if(dispCooling){
-          fill(map(cooling,-3,1,0,255),map(cooling,-3,1,255,0),b);
+        if(dispCooling){          
+          int cr = cooling > 0 ? (int) map( cooling   , 0, Earth.maxCool, 32, 250):0; 
+          int cg = cooling < 0 ? (int) map( cooling, Earth.minCool, 0, 250, 32):0;
+          fill(cr,cg, 0);
         }else{
           fill(r,g,b);
         }

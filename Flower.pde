@@ -12,8 +12,8 @@
     Flower(float mS, Dna dna) {
         this.age=random(0,0.3);
         this.mSize = mS;
-        this.dna = dna;  
-        this.hp = dna.maxHp / 2;
+        this.dna = dna;
+        this.hp = dna.cloneCost*dna.maxHp;
         ++this.dna.numFlowers;
     }
     
@@ -30,13 +30,12 @@
         
         if (abs(tempDiff)<this.dna.sensitivity) {
             this.age += dna.aging/1000;
-            this.hp += 0.002*(1-this.age);
+            this.hp += 0.001*(1-this.age);
             
             Cell nb =  myGrass.get(0).freeNb();
             if (nb != null) {
                 Flower nF = this.clone();
                 if (nF != null) {
-                    this.hp *= 1-this.dna.cloneCost;
                     nb.addFlower(nF);
                     nb.newF = true;
                 }
@@ -44,13 +43,14 @@
             
             
         } else{
-            this.hp += -0.001;
+            this.hp += -0.0005;
         }
         this.hp = constrain(this.hp, 0, this.dna.maxHp);
     }
     
     Flower clone() {
-        if (this.hp > this.dna.cloneCost*this.dna.maxHp) {
+        if (this.hp > 2*this.dna.cloneCost*this.dna.maxHp) {
+            this.hp *= 1-this.dna.cloneCost;
             return new Flower(this.mSize,this.dna.mutate());
         }
         return null;
@@ -66,7 +66,7 @@
             fill(this.dna.uniqClr.r, this.dna.uniqClr.g, this.dna.uniqClr.b);
 
         }else{
-           fill(this.dna.clr.r, this.dna.clr.r, this.dna.clr.b);
+           fill(this.dna.clr.r, this.dna.clr.g, this.dna.clr.b);
         }
         ellipse(this.x, this.y, this.mSize * this.hp / this.dna.maxHp, this.mSize * this.hp / this.dna.maxHp);
 

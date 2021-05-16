@@ -9,13 +9,13 @@ static class Color{
     this.r = r;
     this.g = g;
     this.b = b;
-    this.therm = (float)(r + g + g) / 765;
+    this.therm = (float)(r + g + b) / 765;
   }
   
    Color(Color c){
     this.r = c.r;
     this.g = c.g;
     this.b = c.b;
-    this.therm = (float)(r + g + g) / 765;
+    this.therm = (float)(r + g + b) / 765;
   }
 }

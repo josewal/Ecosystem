@@ -1,21 +1,28 @@
 import java.util.*;
+import java.text.*;
 
 List<Cell> cells = new ArrayList<Cell>();
 private List<Flower> flowers = new ArrayList<Flower>();
   
-
 int w = 100;
-int h = 64;
+int h = 60;
 int r = 10;
 
-Color wh = new Color(255,255,255);
+static{ 
+  Earth.minCool = - 2;
+  Earth.maxCool = 1.75;
+}
+float increment = 0.04;
+
+Color wh = new Color(220,220,220);
 Color bl = new Color(0,0,0);
 
-Dna white = new Dna("A", 1 ,1, 0.6,  25,  13 , wh, wh);
-Dna black = new Dna("B", 0.5, 0.1, 0.6, 12, 11, bl, bl);
+Dna white = new Dna("A", 0.5 ,0.5, 0.1,  25,  10 , wh, wh);
+Dna black = new Dna("B", 2, 0.1, 0.45, 12, 17, bl, bl);
  
-boolean uniqColor = true;
+boolean uniqColor = false;
 boolean dispCooling = false;
+boolean dispFlowers = true;
 
 public void settings() {
     size(w * r, h * r);
@@ -51,12 +58,7 @@ void setup() {
         }
     }
     
-    //for (int i = 0; i < h/4; i++) {
-    //    for (int j = 0; j < w/4; j++) {
-    //        Cell c = cells.get(index[j][i]);
-    //        c.cooling = -3;
-    //    }
-    //}
+
     
     //for (int i = 3*h/4; i < h; i++) {
     //    for (int j = 3*w/4; j < w; j++) {
@@ -66,9 +68,8 @@ void setup() {
     //}
     
     float xoff = 0.0; // Start xoff at 0
-    float detail = 0.8;
+    float detail = 0.5;
     noiseDetail(8, detail);
-    float increment = 0.08;
   
   // For every x,y coordinate in a 2D space, calculate a noise value and produce a brightness value
   for (int x = 0; x < w; x++) {
@@ -78,11 +79,20 @@ void setup() {
       yoff += increment; // Increment yoff
       
       // Calculate noise and scale by 255
-      float cool = map(noise(xoff, yoff),0,1,-2,2);
+      float nn = noise(xoff, yoff);
+      float cool = map(nn,0,1,Earth.minCool,Earth.maxCool);
       Cell c = cells.get(index[x][y]);
       c.cooling = cool;
+      //println(cool);
   }
   }
+    
+    //    for (int i = 0; i < h/4; i++) {
+    //    for (int j = 0; j < w/4; j++) {
+    //        Cell c = cells.get(index[j][i]);
+    //        c.cooling = -3;
+    //    }
+    //}
     
     for (int i = 0; i < 550; i++) { 
         int j = floor(random(cells.size()));
@@ -165,13 +175,24 @@ void setup() {
                         println("Cooling map: ON");
 
           }
-        }
+         }else if(keyCode == 'F'){
+            if(dispFlowers){
+            dispFlowers = false;
+            println("Dispm FLOWERS: OFF");
+
+          }else{
+            dispFlowers = true;
+            println("Dispm FLOWERS: ON");
+
+          }
+        }        
     }
     
     
     
     void draw() {
       for(int d = 0; d <= s; d++){
+        Earth.age++;
         if (d == 0) {
             background(51);
         }
@@ -197,7 +218,7 @@ void setup() {
             Flower f = flowers.get(i);
 
             f.update();
-            if (d == 0) {
+            if (d == 0 && dispFlowers) {
                 f.display(uniqColor);
             }
             if (f.dead()) {

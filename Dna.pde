@@ -1,4 +1,4 @@
- class Dna{
+ class Dna implements Comparable{
     float maxHp;
     float idealTemp;
     float sensitivity;
@@ -10,6 +10,7 @@
     int numFlowers = 0;
     Color uniqClr;
     Dna parent;
+    long age;
     
     
     Dna(String id, float  mph, float ag, float clC, float iT, float sens, Color clr, Color uniqClr) {
@@ -22,6 +23,7 @@
         this.cloneCost = clC;
         this.uniqClr = uniqClr;
         Earth.dnas.add(this);
+        this.age =  Earth.age;
     }
     
     Dna cloneDna(){
@@ -49,7 +51,7 @@
               break;
               case(2):
               mutated = this.cloneDna();
-                mutated.cloneCost = constrain(this.cloneCost + m*0.1, 0.01, 2);
+                mutated.cloneCost = constrain(this.cloneCost + m*0.05, 0.01, 1);
               break;
               case(3):
               mutated = this.cloneDna();
@@ -90,13 +92,15 @@
     }
     
     public String toString(){
-      return  numFlowers+ "\t" +id
-        + "\t\t||" + String.format("%.2f", maxHp)
+
+      
+      return  Earth.formatAgeString(age) + "  COUNT: "+ numFlowers
+        + "\t||" + String.format("%.2f", maxHp)
         + "|" + String.format("%.2f", aging) 
         + "|" + String.format("%.2f", cloneCost) 
         + "|" + String.format("%.2f", idealTemp) 
         + "|" + String.format("%.2f", sensitivity) 
-        + "|"+ String.format("%.2f", clr.therm )+ "||"  ;
+        + "|"+ String.format("%.2f", clr.therm )+ "||"  + "\t" +id;
     }
     
     void printGenesisHist(){
@@ -112,4 +116,17 @@
       }
       println("==============================================================================\n");
     }
+    
+    public int compareTo(Object o){
+      if(o instanceof Dna){
+        Dna d = (Dna) o;
+        long diff = (this.age - d.age);
+        if(diff==0) return 0;
+        if(diff>0) return 1;
+        if(diff<0) return -1;
+      }
+      return -1;
+    }
+    
+      
 }
