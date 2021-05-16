@@ -14,7 +14,7 @@ static{
   clrs.add(new Color(60, 180, 75 ));    clrs.add(new Color(255, 225, 25 ));    clrs.add(new Color(0, 130, 200 ));    clrs.add(new Color(245, 130, 48 ));    clrs.add(new Color(145, 30, 180 ));    clrs.add(new Color(70, 240, 240 ));    clrs.add(new Color(240, 50, 230 ));    clrs.add(new Color(210, 245, 60 ));    clrs.add(new Color(250, 190, 212 ));    clrs.add(new Color(0, 128, 128 ));    clrs.add(new Color(220, 190, 255 ));    clrs.add(new Color(170, 110, 40 ));    clrs.add(new Color(255, 250, 200 ));    clrs.add(new Color(128, 0, 0 ));    clrs.add(new Color(170, 255, 195 ));    clrs.add(new Color(128, 128, 0 ));    clrs.add(new Color(255, 215, 180 ));    clrs.add(new Color(0, 0, 128 ));    clrs.add(new Color(128, 128, 128 )); clrs.add(new Color(255, 255, 255 ));
 } 
   static Color black = new Color(0, 0, 0 );
-  static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+  static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm");
   static String formatAgeString(long a){
       Date dt = new Date(1000*a);
       return simpleDateFormat.format(dt);
