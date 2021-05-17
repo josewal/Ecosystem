@@ -8,11 +8,11 @@ long   shotInt = 10800;
 int NUM_FLOWERS = 300;
 int w = 150;
 int h = 70;
-int r = 10;
+int r = 6;
 
 static{ 
-  Earth.minCool = -2;
-  Earth.maxCool = 2;
+  Earth.minCool = -1.5;
+  Earth.maxCool = 0;
 }
 float increment = 0.04;
 float detail = 0.5;
@@ -20,9 +20,9 @@ float detail = 0.5;
 Color wh = new Color(220,220,220);
 Color bl = new Color(100,100,100);
 
-Dna white = new Dna("A", 0.5 , 0.5, 0.1,  25,  10 , wh, wh);
-//Dna black = new Dna("B", 2   , 0.1, 0.25, 12, 17, bl, bl);
- Dna black = white;
+Dna white = new Dna("A", 0.5 , 0.5, 0.1,  20,  10 , wh, wh);
+Dna black = new Dna("B", 2   , 0.1, 0.25, 10, 17, bl, bl);
+
 boolean uniqColor = false;
 boolean dispCooling = false;
 boolean dispFlowers = true;
@@ -114,6 +114,7 @@ void setup() {
             }
             if(f != null){
               while(!c.addFlower(f)) {
+                  f.hp = 0.5*f.dna.maxHp;
                   j = floor(random(cells.size()));
                   c = cells.get(j);
               }

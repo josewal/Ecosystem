@@ -7,7 +7,7 @@ static class Earth{
     if(cal<=0.0000000000001){
       return -29.9336062089;
     }
-    return log(cal);
+    return 3*log(cal);
   }
   
   static Set<Dna> dnas = 
