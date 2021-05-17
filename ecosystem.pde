@@ -6,8 +6,8 @@ private List<Flower> flowers = new ArrayList<Flower>();
   
 long   shotInt = 10800;
 int NUM_FLOWERS = 300;
-int w = 200;
-int h = 100;
+int w = 300;
+int h = 200;
 int r = 4;
 
 static{ 
@@ -21,7 +21,7 @@ Color wh = new Color(100,220,220);
 Color bl = new Color(100,100,100);
 
 Dna white = new Dna("A", 0.5 , 0.5, 0.1,  15,  5 , wh, wh);
-Dna black = new Dna("B", 2   , 0.1, 0.25, 10, 10, bl, bl);
+Dna black = new Dna("B", 2   , 0.1, 0.1, 7, 5, bl, bl);
 
 boolean uniqColor = false;
 boolean dispCooling = false;
