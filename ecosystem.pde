@@ -4,16 +4,18 @@ import java.text.*;
 List<Cell> cells = new ArrayList<Cell>();
 private List<Flower> flowers = new ArrayList<Flower>();
   
-long   shotInt = 86400;
-int w = 300;
-int h = 200;
-int r = 5;
+long   shotInt = 10800;
+int NUM_FLOWERS = 200;
+int w = 400;
+int h = 250;
+int r = 3;
 
 static{ 
-  Earth.minCool = - 2;
-  Earth.maxCool = 1.5;
+  Earth.minCool = -3;
+  Earth.maxCool = 2;
 }
-float increment = 0.04;
+float increment = 0.02;
+float detail = 0.5;
 
 Color wh = new Color(220,220,220);
 Color bl = new Color(0,0,0);
@@ -69,7 +71,6 @@ void setup() {
     //}
     
     float xoff = 0.0; // Start xoff at 0
-    float detail = 0.5;
     noiseDetail(8, detail);
   
   // For every x,y coordinate in a 2D space, calculate a noise value and produce a brightness value
@@ -95,7 +96,7 @@ void setup() {
     //    }
     //}
     
-    for (int i = 0; i < 550; i++) { 
+    for (int i = 0; i < NUM_FLOWERS; i++) { 
         int j = floor(random(cells.size()));
         Cell c = cells.get(j);
         
@@ -193,6 +194,8 @@ void setup() {
     
     void draw() {
       for(int d = 0; d <= s; d++){
+        //close when all dead
+        if(flowers.isEmpty())System.exit(0);
         
         Earth.age++;
         

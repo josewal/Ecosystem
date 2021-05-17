@@ -77,15 +77,18 @@
         for (int i = 0; i < this.nb.size(); i++) {
             Cell c = this.nb.get(i);
             float tempDiff = c.temp - this.temp;
-            this.temp += (tempDiff)/(mass);
+            this.temp += (tempDiff)/10;
+            c.temp -= (tempDiff)/10;
         }        
 }
+    
     
     void display(boolean dispCooling) {
         this.updateClr();
         if(dispCooling){          
           int cr = cooling > 0 ? (int) map( cooling   , 0, Earth.maxCool, 32, 250):0; 
           int cg = cooling < 0 ? (int) map( cooling, Earth.minCool, 0, 250, 32):0;
+
           fill(cr,cg, 0);
         }else{
           fill(r,g,b);
