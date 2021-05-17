@@ -6,22 +6,22 @@ private List<Flower> flowers = new ArrayList<Flower>();
   
 long   shotInt = 10800;
 int NUM_FLOWERS = 300;
-int w = 150;
-int h = 70;
-int r = 6;
+int w = 200;
+int h = 100;
+int r = 4;
 
 static{ 
-  Earth.minCool = -1.5;
-  Earth.maxCool = 0;
+  Earth.minCool = -5;
+  Earth.maxCool = 2;
 }
 float increment = 0.04;
 float detail = 0.5;
 
-Color wh = new Color(220,220,220);
+Color wh = new Color(100,220,220);
 Color bl = new Color(100,100,100);
 
-Dna white = new Dna("A", 0.5 , 0.5, 0.1,  20,  10 , wh, wh);
-Dna black = new Dna("B", 2   , 0.1, 0.25, 10, 17, bl, bl);
+Dna white = new Dna("A", 0.5 , 0.5, 0.1,  15,  5 , wh, wh);
+Dna black = new Dna("B", 2   , 0.1, 0.25, 10, 10, bl, bl);
 
 boolean uniqColor = false;
 boolean dispCooling = false;

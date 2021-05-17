@@ -73,9 +73,9 @@
         for (int i = 0; i < this.nb.size(); i++) {
             Cell c = this.nb.get(i);
             float calDiff = c.cal - this.cal;
-            newC += (calDiff)/100;
+            newC += (calDiff)/75;
              
-            c.cal -= (calDiff)/100;
+            c.cal -= (calDiff)/75;
             if(c.cal<0){
               c.cal=0;
             }

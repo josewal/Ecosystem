@@ -37,7 +37,7 @@
     Dna mutate() {
         Dna mutated = null;
         float rand = random(1);
-        if (rand<0.001) {
+        if (rand<0.01) {
            int gene = floor(rand*10000);
            float m = 2*(rand*10000 - gene) - 1;
             switch(gene){

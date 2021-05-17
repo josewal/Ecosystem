@@ -3,11 +3,17 @@ static class Earth{
   static float minCool, maxCool;
   static long age = 0;
   
+  static float TEMP_CONST = 3; 
+  static float MIN_TEMP;
+  static {
+    MIN_TEMP  = TEMP_CONST*-29.9336062089;
+  }
   static float getTemp(float cal){
+
     if(cal<=0.0000000000001){
-      return -29.9336062089;
+      return MIN_TEMP;
     }
-    return 3*log(cal);
+    return TEMP_CONST*log(cal);
   }
   
   static Set<Dna> dnas = 
