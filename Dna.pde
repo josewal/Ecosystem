@@ -100,7 +100,7 @@
         + "|" + String.format("%.2f", cloneCost) 
         + "|" + String.format("%.2f", idealTemp) 
         + "|" + String.format("%.2f", sensitivity) 
-        + "|"+ String.format("%.2f", clr.therm )+ "||"  + "\t" +id;
+        + "|"+ String.format("%.2f", clr.cal )+ "||"  + "\t" +id;
     }
     
     void printGenesisHist(){

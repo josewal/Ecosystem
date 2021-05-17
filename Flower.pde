@@ -1,7 +1,7 @@
  class Flower{
     float x;
     float y;
-    List<Cell> myGrass = new ArrayList<Cell>();
+    Cell c;
     
     Dna dna;
       
@@ -19,20 +19,15 @@
     
     
     void update() {
-        float avgTemp = 0;
-        for (int i = 0; i < myGrass.size(); i++) {
-            Cell c = myGrass.get(i);
-            avgTemp += c.temp;
-        }
+        float temp = Earth.getTemp(c.cal);             
         
-        avgTemp /= myGrass.size();
-        float tempDiff = this.dna.idealTemp - avgTemp;
+        float tempDiff = this.dna.idealTemp - temp;
         
         if (abs(tempDiff)<this.dna.sensitivity) {
             this.age += dna.aging/1000;
             this.hp += 0.001*(1-this.age);
             
-            Cell nb =  myGrass.get(0).freeNb();
+            Cell nb =  c.freeNb();
             if (nb != null) {
                 Flower nF = this.clone();
                 if (nF != null) {

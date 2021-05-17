@@ -3,11 +3,8 @@
     int y;
     int w;
     
-    float temp;
-    int maxTemp = 30;
-    int minTemp = -30;
+    float cal;
     float cooling = -0.7;
-    float mass = 10;
     int alpha;
     
     int r;
@@ -24,10 +21,11 @@
         this.y = y;
         this.w = w;
         
-        this.temp = 16;
+        this.cal = 300;
     }
     
     void updateClr(){
+      float temp = Earth.getTemp(cal);
       this.r = (int)map(temp, -20, 60, 0, 255);
       this.g = (int)map(temp, -20, 60, 255, 0);
       this.b = 0;
@@ -42,7 +40,7 @@
         f.x = this.x + this.w / 2;
         f.y = this.y + this.w / 2;
         this.f = f;
-        f.myGrass.add(this);
+        f.c = this;
         return true;
     }
     
@@ -62,39 +60,47 @@
     }
     
     void update() {
-        float newT = this.temp + cooling/mass ;
-        this.temp  = newT < maxTemp && newT > minTemp ? newT : this.temp;
+        float newC =  cooling ;
         
         if (this.f != null && this.f.dead()) {
             this.f = null;
         }
         
         if (this.f != null) {
-            temp += (1 * (1.1 - this.f.dna.clr.therm ) )/mass;
+            newC += this.f.dna.clr.cal;
         }
-        
 
         for (int i = 0; i < this.nb.size(); i++) {
             Cell c = this.nb.get(i);
-            float tempDiff = c.temp - this.temp;
-            this.temp += (tempDiff)/10;
-            c.temp -= (tempDiff)/10;
-        }        
+            float calDiff = c.cal - this.cal;
+            newC += (calDiff)/10;
+             
+            c.cal -= (calDiff)/10;
+            if(c.cal<0){
+              c.cal=0;
+            }
+        }   
+        
+         this.cal  = (this.cal + newC) > 0 ? this.cal + newC : 0;
+
 }
     
     
     void display(boolean dispCooling) {
         this.updateClr();
         if(dispCooling){          
-          int cr = cooling > 0 ? (int) map( cooling   , 0, Earth.maxCool, 32, 250):0; 
-          int cg = cooling < 0 ? (int) map( cooling, Earth.minCool, 0, 250, 32):0;
-
+          int cr = cooling > 0 ? (int) map( cooling, 0,             Earth.maxCool, 32, 250):0; 
+          int cg = cooling < 0 ? (int) map( cooling, Earth.minCool, 0,             250, 32):0;
           fill(cr,cg, 0);
         }else{
           fill(r,g,b);
         }
         noStroke();
         rect(x,y,w,w);
+    }
+    
+    float getTemp(){
+      return Earth.getTemp(cal);
     }
     
 }

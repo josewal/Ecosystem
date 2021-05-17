@@ -3,6 +3,13 @@ static class Earth{
   static float minCool, maxCool;
   static long age = 0;
   
+  static float getTemp(float cal){
+    if(cal<=0.0000000000001){
+      return -29.9336062089;
+    }
+    return log(cal);
+  }
+  
   static Set<Dna> dnas = 
     Collections.newSetFromMap(
         new WeakHashMap<Dna, Boolean>()

@@ -3,19 +3,16 @@ static class Color{
   int r;
   int g;
   int b;
-  float therm; 
+  float cal; 
   
   Color(int r, int g, int b){
     this.r = r;
     this.g = g;
     this.b = b;
-    this.therm = (float)(r + g + b) / 765;
+    this.cal = 1.1 - (float)(r + g + b) / 765;
   }
   
    Color(Color c){
-    this.r = c.r;
-    this.g = c.g;
-    this.b = c.b;
-    this.therm = (float)(r + g + b) / 765;
+     this(c.r,c.g,c.b);
   }
 }

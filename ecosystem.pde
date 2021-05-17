@@ -5,24 +5,24 @@ List<Cell> cells = new ArrayList<Cell>();
 private List<Flower> flowers = new ArrayList<Flower>();
   
 long   shotInt = 10800;
-int NUM_FLOWERS = 200;
-int w = 400;
-int h = 250;
-int r = 3;
+int NUM_FLOWERS = 300;
+int w = 150;
+int h = 70;
+int r = 10;
 
 static{ 
-  Earth.minCool = -3;
+  Earth.minCool = -2;
   Earth.maxCool = 2;
 }
-float increment = 0.02;
+float increment = 0.04;
 float detail = 0.5;
 
 Color wh = new Color(220,220,220);
-Color bl = new Color(0,0,0);
+Color bl = new Color(100,100,100);
 
 Dna white = new Dna("A", 0.5 , 0.5, 0.1,  25,  10 , wh, wh);
-Dna black = new Dna("B", 2   , 0.1, 0.25, 12, 17, bl, bl);
- 
+//Dna black = new Dna("B", 2   , 0.1, 0.25, 12, 17, bl, bl);
+ Dna black = white;
 boolean uniqColor = false;
 boolean dispCooling = false;
 boolean dispFlowers = true;
@@ -130,10 +130,10 @@ void setup() {
         if (c.f != null && keyPressed && keyCode == SHIFT){
           c.f.dna.printGenesisHist();
         }else if (c.f != null) {
-            print("Temp:",(int)c.temp, "  DNA:", c.f.dna.toString());
+            print("Temp:",(int) c.getTemp(), "  DNA:", c.f.dna.toString());
             println();
         }else if(c.f == null){
-            println("Temperature:",(int)c.temp);
+            println("Temperature:",c.getTemp());
         }
     }
     
@@ -195,7 +195,7 @@ void setup() {
     void draw() {
       for(int d = 0; d <= s; d++){
         //close when all dead
-        if(flowers.isEmpty())System.exit(0);
+        //if(flowers.isEmpty())System.exit(0);
         
         Earth.age++;
         
@@ -206,11 +206,9 @@ void setup() {
         if (d == 0) {
             background(51);
         }
-        float avgTemp = 0;
         for (int i = cells.size() - 1; i >= 0; i--) {
             Cell c = cells.get(i);
             c.update();
-            avgTemp += c.temp;
             if (d == 0) {
                 c.display(dispCooling);
             }
@@ -221,9 +219,7 @@ void setup() {
             }
         }
         
-        avgTemp /= cells.size();
-        //println(flowers.size(), avgTemp);
-        
+   
         for (int i = flowers.size() - 1; i >= 0; i--) {
             Flower f = flowers.get(i);
 
